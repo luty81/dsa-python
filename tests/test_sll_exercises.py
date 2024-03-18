@@ -1,6 +1,6 @@
 
 from exercises.sll_exercises import *
-from test_helper import create_linked_list_from, assert_node
+from tests.test_helper import create_linked_list_from, assert_node
 
 def test_find_middle_node():
     middle = find_middle_node(_in_([10, 20, 30, 40]))

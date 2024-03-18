@@ -1,6 +1,5 @@
 from single_linked_list import SingleLinkedList
-import test_helper as helper
-
+from tests import test_helper as helper
 
 def test_init():
     sll = SingleLinkedList(10)
