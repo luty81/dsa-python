@@ -30,7 +30,27 @@ def test_append():
     node = node.next
     assert (node.prev.data, node.data, node.next.data) == (30, 40, 50)
     node = node.next
-    assert (node.prev.data, node.data, node.next) == (40, 50, None)    
+    assert (node.prev.data, node.data, node.next) == (40, 50, None)
+
+def test_prepend():
+    dll = DoublyLinkedList(10)
+    dll.prepend(20)
+    dll.prepend(30)
+    dll.prepend(40)
+    dll.prepend(50)
+
+    assert dll.to_string() == "50 <=> 40 <=> 30 <=> 20 <=> 10"
+    node = dll.head
+    assert (node.prev, node.data, node.next.data) == (None, 50, 40)
+    node = node.next
+    assert (node.prev.data, node.data, node.next.data) == (50, 40, 30)
+    node = node.next
+    assert (node.prev.data, node.data, node.next.data) == (40, 30, 20)
+    node = node.next
+    assert (node.prev.data, node.data, node.next.data) == (30, 20, 10)
+    node = node.next
+    assert (node.prev.data, node.data, node.next) == (20, 10, None)    
+    
 
 
 
