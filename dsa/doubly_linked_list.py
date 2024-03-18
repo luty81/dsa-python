@@ -30,7 +30,20 @@ class DoublyLinkedList:
         self.head = new_node
 
     def pop(self):
-        pass
+        if self.head is None:
+            return None
+        
+        removed_node = self.tail
+        if self.head is self.tail:
+            self.head = None
+            self.tail = None
+        else:
+            self.tail = self.tail.prev
+            self.tail.next = None
+
+        removed_node.prev = None
+        return removed_node
+
 
     def pop_first(self):
         pass

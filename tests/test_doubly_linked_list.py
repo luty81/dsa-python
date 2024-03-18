@@ -49,9 +49,44 @@ def test_prepend():
     node = node.next
     assert (node.prev.data, node.data, node.next.data) == (30, 20, 10)
     node = node.next
-    assert (node.prev.data, node.data, node.next) == (20, 10, None)    
-    
+    assert (node.prev.data, node.data, node.next) == (20, 10, None) 
 
+
+def test_pop():
+    dll = DoublyLinkedList(10)
+    dll.append(20)
+    dll.append(30)
+    dll.append(40)
+
+    removed_node = dll.pop()
+    assert removed_node.data == 40
+    assert (removed_node.prev, removed_node.next) == (None, None)
+    assert dll.tail.data == 30
+    assert dll.tail.prev.data == 20
+    assert dll.tail.next is None
+
+    removed_node = dll.pop()
+    assert removed_node.data == 30
+    assert (removed_node.prev, removed_node.next) == (None, None)
+    assert dll.tail.data == 20
+    assert dll.tail.prev.data == 10
+    assert dll.tail.next is None
+
+    removed_node = dll.pop()
+    assert removed_node.data == 20
+    assert (removed_node.prev, removed_node.next) == (None, None)
+    assert dll.tail.data == 10
+    assert dll.tail.prev is None
+    assert dll.tail.next is None
+    assert dll.head is dll.tail
+    
+    removed_node = dll.pop()
+    assert removed_node.data == 10
+    assert (removed_node.prev, removed_node.next) == (None, None)
+    assert dll.tail is None
+    assert dll.head is None
+
+    assert dll.pop() is None
 
 
     
