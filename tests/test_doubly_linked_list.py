@@ -14,11 +14,7 @@ def test_init():
     assert dll.to_string() == "10"
 
 def test_append():
-    dll = DoublyLinkedList(10)
-    dll.append(20)
-    dll.append(30)
-    dll.append(40)
-    dll.append(50)
+    dll = _doubly_linked_list_with_(5)
 
     assert dll.to_string() == "10 <=> 20 <=> 30 <=> 40 <=> 50"
     node = dll.head
@@ -33,11 +29,7 @@ def test_append():
     assert (node.prev.data, node.data, node.next) == (40, 50, None)
 
 def test_prepend():
-    dll = DoublyLinkedList(10)
-    dll.prepend(20)
-    dll.prepend(30)
-    dll.prepend(40)
-    dll.prepend(50)
+    dll = _reversed_doubly_linked_list_with_(5)
 
     assert dll.to_string() == "50 <=> 40 <=> 30 <=> 20 <=> 10"
     node = dll.head
@@ -53,10 +45,7 @@ def test_prepend():
 
 
 def test_pop():
-    dll = DoublyLinkedList(10)
-    dll.append(20)
-    dll.append(30)
-    dll.append(40)
+    dll = _doubly_linked_list_with_(4)
 
     removed_node = dll.pop()
     assert removed_node.data == 40
@@ -90,11 +79,7 @@ def test_pop():
 
 
 def test_pop_first():
-    dll = DoublyLinkedList(10)
-    dll.append(20)
-    dll.append(30)
-    dll.append(40)
-    dll.append(50)
+    dll = _doubly_linked_list_with_(5)
 
     removed_node = dll.pop_first()
     assert removed_node.data == 10
@@ -132,6 +117,64 @@ def test_pop_first():
     assert dll.tail is None
 
     assert dll.pop_first() is None
+
+
+def test_get():
+    dll = _doubly_linked_list_with_(4)
+
+    found_item = dll.get(0)
+    assert found_item is not None
+    assert found_item.data == 10
+    assert found_item.prev is None
+    assert found_item.next.data == 20
+    assert found_item is dll.head
+
+    found_item = dll.get(1)
+    assert found_item is not None
+    assert found_item.data == 20
+    assert found_item.prev.data == 10
+    assert found_item.next.data == 30
+
+    found_item = dll.get(2)
+    assert found_item is not None
+    assert found_item.data == 30
+    assert found_item.prev.data == 20
+    assert found_item.next.data == 40
+
+    found_item = dll.get(3)
+    assert found_item is not None
+    assert found_item.data == 40
+    assert found_item.prev.data == 30
+    assert found_item.next is None
+    assert found_item is dll.tail
+
+def test_get_index_out_of_bounds():
+    dll = _doubly_linked_list_with_(4)
+    assert dll.get(-1) is None
+    assert dll.get(4) is None
+
+def test_get_from_dll_with_one_element():
+    dll = DoublyLinkedList(10)
+    found_item = dll.get(0)
+    assert found_item.data == 10
+    assert found_item.prev is None
+    assert found_item.next is None
+    assert found_item is dll.head
+    assert found_item is dll.tail
+
+
+def _doubly_linked_list_with_(n_items: int):
+    dll = DoublyLinkedList(10)
+    for i in range(1, n_items, 1):
+        dll.append((i+1)*10)
+    return dll
+
+
+def _reversed_doubly_linked_list_with_(n_items: int):
+    dll = DoublyLinkedList(n_items*10)
+    for i in range(n_items-1, 0, -1):
+        dll.append(i*10)
+    return dll
 
 
     

@@ -61,7 +61,19 @@ class DoublyLinkedList:
         return node_to_remove 
     
     def get(self, index):
-        pass
+        if index < 0:
+            return None
+        
+        found_item = self.head
+        for _ in range(index):
+            if found_item is None:
+                return None
+            
+            found_item = found_item.next
+
+        return found_item
+
+
 
     def set(self, index, data):
         pass
