@@ -1,5 +1,6 @@
 from typing import Tuple
-from single_linked_list import Node, SingleLinkedList
+from dsa.node import Node
+from dsa.single_linked_list import SingleLinkedList
 
 def create_linked_list_from(array):
     sll = SingleLinkedList()

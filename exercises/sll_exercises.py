@@ -1,5 +1,6 @@
 from typing import List
-from single_linked_list import Node, SingleLinkedList
+from dsa.node import Node
+from dsa.single_linked_list import SingleLinkedList
 
 
 def find_middle_node(sll: SingleLinkedList) -> Node:

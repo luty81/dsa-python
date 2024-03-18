@@ -1,12 +1,5 @@
 
-class Node:
-    def __init__(self, node_data):
-        self.data = node_data
-        self.next = None
-
-    def print(self):
-        node_next = self.next.data if self.next is not None else "NULL"
-        print(f"{self.data} -> {node_next}")
+from dsa.node import Node
 
 
 class SingleLinkedList:
@@ -186,5 +179,5 @@ class SingleLinkedList:
 sll = SingleLinkedList()
 sll.append(10)
 sll.append(20)
-sll.pop_first().print()
+print(sll.pop_first().to_string())
 sll.print_list()
