@@ -33,7 +33,7 @@ class DoublyLinkedList:
         if self.head is None:
             return None
         
-        removed_node = self.tail
+        node_to_remove = self.tail
         if self.head is self.tail:
             self.head = None
             self.tail = None
@@ -41,13 +41,25 @@ class DoublyLinkedList:
             self.tail = self.tail.prev
             self.tail.next = None
 
-        removed_node.prev = None
-        return removed_node
+        node_to_remove.prev = None
+        return node_to_remove
 
 
     def pop_first(self):
-        pass
-
+        if self.head is None:
+            return None
+        
+        node_to_remove = self.head
+        if self.head is self.tail:
+            self.head = None
+            self.tail = None
+        else:
+            self.head = self.head.next
+            self.head.prev = None
+            
+        node_to_remove.next = None
+        return node_to_remove 
+    
     def get(self, index):
         pass
 
