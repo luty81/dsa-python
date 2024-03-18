@@ -16,5 +16,5 @@ class DllNode(Node):
     def to_string(self):
         node_prev = self.prev.data if self.prev is not None else "NULL"
         node_next = self.next.data if self.next is not None else "NULL"
-        return f"{node_prev} -> {self.data} -> {node_next}"
+        return f"{node_prev} <=> {self.data} <=> {node_next}"
 

@@ -21,4 +21,4 @@ def test_dll_node_init():
     assert node.data == 10
     assert node.prev is None
     assert node.next is None
-    assert node.to_string() == "NULL -> 10 -> NULL"
+    assert node.to_string() == "NULL <=> 10 <=> NULL"
