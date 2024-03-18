@@ -1,7 +1,6 @@
-from typing import List
-import pytest
 from single_linked_list import SingleLinkedList
-from single_linked_list import Node
+import test_helper as helper
+
 
 def test_init():
     sll = SingleLinkedList(10)
@@ -31,20 +30,20 @@ def test_append():
     assert sll.tail.next is None
 
 def test_to_list():
-    sll = _to_single_linked_list_([10, 20, 30])
+    sll = helper.create_linked_list_from([10, 20, 30])
     _assert_linked_list_(sll, [10, 20, 30])
 
 def test_pop():
-    sll = _to_single_linked_list_([10, 20, 30])
+    sll = helper.create_linked_list_from([10, 20, 30])
     _assert_linked_list_(sll, [10, 20, 30])
 
-    _assert_node_(sll.pop(), (30, None))
+    assert sll.pop().data == 30
     _assert_linked_list_(sll, [10, 20])
 
-    _assert_node_(sll.pop(), (20, None))
+    assert sll.pop().data == 20
     _assert_linked_list_(sll, [10])
 
-    _assert_node_(sll.pop(), (10, None))
+    assert sll.pop().data == 10
     _assert_linked_list_(sll, [])
 
     assert sll.pop() is None
@@ -54,13 +53,15 @@ def test_pop_first():
     sll = SingleLinkedList()
     assert sll.pop_first() is None
 
-    sll = _to_single_linked_list_([10, 20, 30])
-    _assert_node_(sll.pop_first(), (10, None))
+    sll = helper.create_linked_list_from([10, 20, 30])
+
+    assert sll.pop_first().data == 10
     _assert_linked_list_(sll, [20, 30])
-    _assert_node_(sll.pop_first(), (20, None))
+    assert sll.pop_first().data == 20
     _assert_linked_list_(sll, [30])
-    _assert_node_(sll.pop_first(), (30, None))
+    assert sll.pop_first().data == 30
     _assert_linked_list_(sll, [])
+
     assert sll.pop_first() is None
     assert sll.head is None
     assert sll.tail is None
@@ -68,15 +69,15 @@ def test_pop_first():
 def test_get_by_index():
     assert SingleLinkedList().get(0) is None
 
-    sll = _to_single_linked_list_([10, 20, 30])
-    _assert_node_data_(sll.get(0), 10)
-    _assert_node_data_(sll.get(1), 20)
-    _assert_node_data_(sll.get(2), 30)
+    sll = helper.create_linked_list_from([10, 20, 30])
+    helper.assert_node_data(sll.get(0), 10)
+    helper.assert_node_data(sll.get(1), 20)
+    helper.assert_node_data(sll.get(2), 30)
     assert sll.get(3) is None
     assert sll.get(-1) is None
     
 def test_set_by_index():
-    sll = _to_single_linked_list_([10, 20, 30])
+    sll = helper.create_linked_list_from([10, 20, 30])
     assert sll.set(-1, 100) is False
     _assert_linked_list_(sll, [10, 20 , 30])
 
@@ -97,7 +98,7 @@ def test_set_by_index():
     _assert_linked_list_(empty_sll, [])
 
 def test_insert_at():
-    sll = _to_single_linked_list_([10, 30])
+    sll = helper.create_linked_list_from([10, 30])
     assert sll.insert_at(1, 25) is True
     _assert_linked_list_(sll, [10, 25, 30])
     assert sll.insert_at(0, 5) is True
@@ -113,28 +114,28 @@ def test_insert_at_empty_list():
     _assert_linked_list_(sll, [5, 10])
 
 def test_remove_at_middle():
-    sll = _to_single_linked_list_([10, 20, 30, 40])
+    sll = helper.create_linked_list_from([10, 20, 30, 40])
     assert sll.remove_at(2) is True
     _assert_linked_list_(sll, [10, 20, 40])
     assert sll.remove_at(1) is True
     _assert_linked_list_(sll, [10, 40])
 
 def test_remove_at_end():
-    sll = _to_single_linked_list_([10, 20, 30])
+    sll = helper.create_linked_list_from([10, 20, 30])
     assert sll.remove_at(2) is True
     _assert_linked_list_(sll, [10, 20])
     assert sll.remove_at(1) is True
     _assert_linked_list_(sll, [10])
 
 def test_remove_at_start():
-    sll = _to_single_linked_list_([10, 20, 30])
+    sll = helper.create_linked_list_from([10, 20, 30])
     assert sll.remove_at(0) is True
     _assert_linked_list_(sll, [20, 30])
     assert sll.remove_at(0) is True
     _assert_linked_list_(sll, [30])
 
 def test_remove_at_until_empty():
-    sll = _to_single_linked_list_([10, 20])
+    sll = helper.create_linked_list_from([10, 20])
     assert sll.remove_at(1) is True
     assert sll.remove_at(0) is True
     _assert_linked_list_(sll, [])
@@ -142,21 +143,20 @@ def test_remove_at_until_empty():
     sll = SingleLinkedList()
     assert sll.remove_at(0) is False
 
-
 def test_reverse():
-    sll = _to_single_linked_list_([1, 2, 3])
+    sll = helper.create_linked_list_from([1, 2, 3])
     sll.reverse()
     _assert_linked_list_(sll, [3, 2, 1])
 
-    sll = _to_single_linked_list_([1, 2, 3, 4])
+    sll = helper.create_linked_list_from([1, 2, 3, 4])
     sll.reverse()
     _assert_linked_list_(sll, [4, 3, 2, 1])
 
-    sll = _to_single_linked_list_([1, 2])
+    sll = helper.create_linked_list_from([1, 2])
     sll.reverse()
     _assert_linked_list_(sll, [2, 1])
 
-    sll = _to_single_linked_list_([1])
+    sll = helper.create_linked_list_from([1])
     sll.reverse()
     _assert_linked_list_(sll, [1])
 
@@ -164,15 +164,25 @@ def test_reverse():
     sll.reverse()
     _assert_linked_list_(sll, [])
 
-
 def test_prepend():
     sll = SingleLinkedList()
     sll.prepend(10)
     _assert_linked_list_(sll, [10])
 
-    sll = _to_single_linked_list_([20, 30, 40])
+    sll = helper.create_linked_list_from([20, 30, 40])
     sll.prepend(10)
     _assert_linked_list_(sll, [10, 20, 30, 40])
+
+
+def test_to_string():
+    sll = helper.create_linked_list_from([1, 2, 3, 4, 5])
+    assert sll.to_string() == "1->2->3->4->5"
+
+    sll = helper.create_linked_list_from([1, 2, 3, 4])
+    assert sll.to_string() == "1->2->3->4"
+
+    sll = helper.create_linked_list_from([1, 2])
+
 
 def _assert_linked_list_(sll: SingleLinkedList, expected):
     assert expected == sll.to_list()
@@ -184,22 +194,4 @@ def _assert_linked_list_(sll: SingleLinkedList, expected):
         assert sll.head is None
         assert sll.tail is None
 
-def _assert_node_(node: Node, expected):
-    current, next = expected[0], expected[1]
-    assert node is not None
-    assert node.data == current
-    if next is None:
-        assert node.next is None
-    else:
-        assert node.next is not None
-        assert node.next.data == next
 
-def _assert_node_data_(node: Node, expected_data):
-    assert node is not None
-    assert node.data == expected_data
-
-def _to_single_linked_list_(array):
-    sll = SingleLinkedList()
-    for value in array:
-        sll.append(value)
-    return sll

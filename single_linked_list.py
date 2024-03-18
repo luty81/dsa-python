@@ -45,6 +45,7 @@ class SingleLinkedList:
     def pop_first(self) -> Node:
         if self.head is None:
             return None
+        
         if self.head is self.tail:
             removed_item = self.head
             self._init_list_()
@@ -121,27 +122,17 @@ class SingleLinkedList:
 
     def reverse(self):
         if self.head is not None:
-            old_head = self.head
+            current = self.head
             self.head = self.tail
-            self.tail = old_head
+            self.tail = current
 
-            temp = old_head
             before = None
-            after = temp.next
-            self.print_debug(before, temp, after)
-            while temp is not None and after is not None:
-                after = temp.next
-                self.print_debug(before, temp, after)
-
-                temp.next = before
-                self.print_debug(before, temp, after)
-
-                before = temp
-                self.print_debug(before, temp, after)
-
-                temp = after
-                self.print_debug(before, temp, after)
-                print()
+            after = current.next
+            while current is not None and after is not None:
+                after = current.next
+                current.next = before
+                before = current
+                current = after
 
     def print_debug(self, before, current, after):
         msg = str(before.data) if before is not None else "None"
@@ -154,6 +145,28 @@ class SingleLinkedList:
         while current_node is not None:
             print(current_node.data)
             current_node = current_node.next
+
+    def to_string(self):
+        result = ""
+        arrow = ""        
+        current = self.head
+        processed_nodes = []        
+        while current:
+            result += f"{arrow}{current.data}"
+            if current.next:
+                result += f"->{current.next.data}"
+            
+            if current.data in processed_nodes:
+                return f"{result[:-4]}->(...)"
+            processed_nodes.append(current.data)
+
+            current = current.next
+            if current:
+                current = current.next
+        
+            arrow = "->"
+
+        return result
 
     def to_list(self):
         result = []
@@ -173,10 +186,5 @@ class SingleLinkedList:
 sll = SingleLinkedList()
 sll.append(10)
 sll.append(20)
-sll.append(30)
-sll.append(40)
-
-
-sll.print_list()
-sll.reverse()
+sll.pop_first().print()
 sll.print_list()
