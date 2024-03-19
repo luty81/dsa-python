@@ -1,7 +1,4 @@
-
-
 from dsa.node import Node, DllNode
-
 
 def test_node_init():
     node = Node(10)

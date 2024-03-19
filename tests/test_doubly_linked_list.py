@@ -1,10 +1,6 @@
-
-
-
-from typing import List, Tuple
+from typing import List
 from dsa.doubly_linked_list import DoublyLinkedList
 from dsa.node import DllNode
-
 
 def test_init():
     dll = DoublyLinkedList(10)
@@ -12,6 +8,7 @@ def test_init():
     assert (type(h), h.data, h.next) == (DllNode, 10, None)
     assert (type(t), t.data, t.next) == (DllNode, 10, None)
     assert dll.to_string() == "10"
+
 
 def test_append():
     dll = _doubly_linked_list_with_(5)
@@ -42,7 +39,6 @@ def test_prepend():
     assert (node.prev.data, node.data, node.next.data) == (30, 20, 10)
     node = node.next
     assert (node.prev.data, node.data, node.next) == (20, 10, None) 
-
 
 def test_pop():
     dll = _doubly_linked_list_with_(4)
@@ -76,7 +72,6 @@ def test_pop():
     assert dll.head is None
 
     assert dll.pop() is None
-
 
 def test_pop_first():
     dll = _doubly_linked_list_with_(5)
@@ -162,6 +157,7 @@ def test_get_from_dll_with_one_element():
     assert found_item is dll.head
     assert found_item is dll.tail
 
+
 def test_set_by_index():
     dll = _doubly_linked_list_with_(3)
     assert dll.set(-1, 100) is False
@@ -186,6 +182,7 @@ def test_set_by_index_empty_dll():
     assert empty_dll.to_string() == ""
     assert empty_dll.head is None
     assert empty_dll.tail is None
+
 
 def test_insert_in_the_middle():
     dll = _doubly_linked_list_with_(4)
@@ -224,6 +221,7 @@ def test_insert_in_an_empty_list():
     assert dll.insert(0, 10)
     assert _dll_is_expected_(dll, [10])
 
+
 def test_remove_in_the_middle():
     dll = _doubly_linked_list_with_(4)
     assert _assert_removed_node_(dll.remove(2), 30)
@@ -251,7 +249,7 @@ def test_remove_in_empty_list():
     assert dll.remove(0) is None
     assert dll.head is None
     assert dll.tail is None
-    
+
 
 def _dll_is_expected_(actual_dll: DoublyLinkedList, expected: List):
     if any(expected):
@@ -272,7 +270,6 @@ def _dll_is_expected_(actual_dll: DoublyLinkedList, expected: List):
     
     return False
 
-
 def _assert_removed_node_(removed_node: DllNode, expected_data):
     assert removed_node is not None
     assert removed_node.data == expected_data
@@ -280,23 +277,17 @@ def _assert_removed_node_(removed_node: DllNode, expected_data):
     assert removed_node.next is None
     return True
 
-
 def _doubly_linked_list_with_(n_items: int):
     dll = DoublyLinkedList(10)
     for i in range(1, n_items, 1):
         dll.append((i+1)*10)
     return dll
 
-
 def _reversed_doubly_linked_list_with_(n_items: int):
     dll = DoublyLinkedList(n_items*10)
     for i in range(n_items-1, 0, -1):
         dll.append(i*10)
     return dll
-
-
-    
-
 
 
 

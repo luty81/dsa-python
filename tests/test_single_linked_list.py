@@ -7,6 +7,7 @@ def test_init():
     assert sll.tail.data == 10
     assert sll.head is sll.tail
     
+
 def test_append_in_empty_list():
     sll = SingleLinkedList()
     assert sll.head is None
@@ -28,9 +29,11 @@ def test_append():
     assert sll.tail.data == 30
     assert sll.tail.next is None
 
+
 def test_to_list():
     sll = helper.create_linked_list_from([10, 20, 30])
     _assert_linked_list_(sll, [10, 20, 30])
+
 
 def test_pop():
     sll = helper.create_linked_list_from([10, 20, 30])
@@ -65,6 +68,7 @@ def test_pop_first():
     assert sll.head is None
     assert sll.tail is None
 
+
 def test_get_by_index():
     assert SingleLinkedList().get(0) is None
 
@@ -96,6 +100,7 @@ def test_set_by_index():
     assert empty_sll.set(0, 10) is False
     _assert_linked_list_(empty_sll, [])
 
+
 def test_insert_at():
     sll = helper.create_linked_list_from([10, 30])
     assert sll.insert_at(1, 25) is True
@@ -111,6 +116,7 @@ def test_insert_at_empty_list():
     _assert_linked_list_(sll, [10])
     assert sll.insert_at(0, 5)
     _assert_linked_list_(sll, [5, 10])
+
 
 def test_remove_at_middle():
     sll = helper.create_linked_list_from([10, 20, 30, 40])
@@ -141,6 +147,7 @@ def test_remove_at_until_empty():
 
     sll = SingleLinkedList()
     assert sll.remove_at(0) is False
+
 
 def test_reverse():
     sll = helper.create_linked_list_from([1, 2, 3])

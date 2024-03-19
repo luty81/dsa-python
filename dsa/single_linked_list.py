@@ -1,11 +1,10 @@
-
 from dsa.node import Node
-
 
 class SingleLinkedList:
 
     def __init__(self, data = None):
         self._reset_(data)
+
 
     def append(self, data):
         if self.head is None:
@@ -180,10 +179,3 @@ class SingleLinkedList:
             return removed_item
         
         return None
-
-
-sll = SingleLinkedList()
-sll.append(10)
-sll.append(20)
-print(sll.pop_first().to_string())
-sll.print_list()

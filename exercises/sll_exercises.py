@@ -2,7 +2,6 @@ from typing import List
 from dsa.node import Node
 from dsa.single_linked_list import SingleLinkedList
 
-
 def find_middle_node(sll: SingleLinkedList) -> Node:
     if sll.head is sll.tail:
         return sll.head

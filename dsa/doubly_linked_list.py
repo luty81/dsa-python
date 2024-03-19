@@ -5,6 +5,7 @@ from dsa.node import DllNode
 class DoublyLinkedList:
     def __init__(self, data):
         self._reset_(data)
+        
 
     def append(self, data):
         if self.head is None:
@@ -121,8 +122,6 @@ class DoublyLinkedList:
         
         return node
 
-
-        
         
     def to_string(self):
         if self.head is None:
@@ -145,9 +144,6 @@ class DoublyLinkedList:
             current = current.next
         return result
 
-    # def _set_head_and_tail_(self, new_node: DllNode):
-    #     self.head = new_node
-    #     self.tail = new_node
 
     def _reset_(self, data = None):
         new_node = DllNode(data) if data is not None else None
