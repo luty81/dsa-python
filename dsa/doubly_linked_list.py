@@ -39,7 +39,6 @@ class DoublyLinkedList:
         node_to_remove.prev = None
         return node_to_remove
 
-
     def pop_first(self):
         if self.head is None:
             return None
@@ -100,7 +99,29 @@ class DoublyLinkedList:
         return True
 
     def remove(self, index):
-        pass
+        node = self.get(index)
+
+        if self.head is self.tail:
+            self._reset_(None)
+            return node
+
+        if node:
+            if node is self.head:
+                self.head = node.next
+                self.head.prev = None
+            elif node is self.tail:
+                self.tail = node.prev
+                self.tail.next = None
+            else:
+                node.prev.next = node.next
+                node.next.prev = node.prev
+            
+            node.prev = None
+            node.next = None
+        
+        return node
+
+
         
         
     def to_string(self):

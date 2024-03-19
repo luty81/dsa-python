@@ -223,8 +223,35 @@ def test_insert_in_an_empty_list():
 
     assert dll.insert(0, 10)
     assert _dll_is_expected_(dll, [10])
-    
 
+def test_remove_in_the_middle():
+    dll = _doubly_linked_list_with_(4)
+    assert _assert_removed_node_(dll.remove(2), 30)
+    assert _dll_is_expected_(dll, [10, 20, 40])
+    assert _assert_removed_node_(dll.remove(1), 20)
+    assert _dll_is_expected_(dll, [10, 40])
+
+def test_remove_in_the_edges():
+    dll = _doubly_linked_list_with_(4)
+    assert _assert_removed_node_(dll.remove(3), 40)
+    assert _dll_is_expected_(dll, [10, 20, 30])
+    assert _assert_removed_node_(dll.remove(0), 10)
+    assert _dll_is_expected_(dll, [20, 30])
+
+def test_remove_in_single_dll():
+    dll = DoublyLinkedList(10)
+    assert _assert_removed_node_(dll.remove(0), 10)
+    assert dll.head is None
+    assert dll.tail is None
+
+def test_remove_in_empty_list():
+    dll = DoublyLinkedList(None)
+    assert dll.head is None
+    assert dll.tail is None
+    assert dll.remove(0) is None
+    assert dll.head is None
+    assert dll.tail is None
+    
 
 def _dll_is_expected_(actual_dll: DoublyLinkedList, expected: List):
     if any(expected):
@@ -244,6 +271,14 @@ def _dll_is_expected_(actual_dll: DoublyLinkedList, expected: List):
         return True
     
     return False
+
+
+def _assert_removed_node_(removed_node: DllNode, expected_data):
+    assert removed_node is not None
+    assert removed_node.data == expected_data
+    assert removed_node.prev is None 
+    assert removed_node.next is None
+    return True
 
 
 def _doubly_linked_list_with_(n_items: int):
