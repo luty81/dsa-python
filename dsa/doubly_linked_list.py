@@ -4,30 +4,25 @@ from dsa.node import DllNode
 
 class DoublyLinkedList:
     def __init__(self, data):
-        new_node = DllNode(data)
-        self.head = new_node
-        self.tail = new_node
+        self._reset_(data)
 
     def append(self, data):
-        new_node = DllNode(data)
         if self.head is None:
-            self._set_head_and_tail_(new_node)
-            return
-
-        new_node.prev = self.tail
-        self.tail.next = new_node
-        self.tail = new_node
+            self._reset_(new_node)
+        else:
+            new_node = DllNode(data)
+            new_node.prev = self.tail
+            self.tail.next = new_node
+            self.tail = new_node
     
     def prepend(self, data):
-        new_node = DllNode(data)
         if self.head is None:
-            self._set_head_and_tail_(new_node)
-            return
-        
-        new_node = DllNode(data)
-        new_node.next = self.head
-        self.head.prev = new_node
-        self.head = new_node
+            self._reset_(data)
+        else:        
+            new_node = DllNode(data)
+            new_node.next = self.head
+            self.head.prev = new_node
+            self.head = new_node
 
     def pop(self):
         if self.head is None:
@@ -73,19 +68,45 @@ class DoublyLinkedList:
 
         return found_item
 
-
-
     def set(self, index, data):
-        pass
+        node = self.get(index)
+        if node:
+            node.data = data
+            return True
+        
+        return False
 
     def insert(self, index, data):
-        pass
+        if index < 0:
+            return False
+
+        if index == 0:
+            self.prepend(data)
+        else:        
+            node = self.get(index)
+            if node:
+                new_node = DllNode(data)
+                new_node.next = node
+                new_node.prev = node.prev
+                node.prev.next = new_node
+                node.prev = new_node
+            else:
+                node = self.get(index - 1)
+                if node is None:
+                    return False
+            
+                self.append(data)
+        
+        return True
 
     def remove(self, index):
         pass
         
         
     def to_string(self):
+        if self.head is None:
+            return ""
+
         current = self.head
         result = f"{current.data}"
         current = current.next
@@ -94,9 +115,20 @@ class DoublyLinkedList:
             current = current.next
 
         return result
+    
+    def to_array(self):
+        result = []
+        current = self.head
+        while current:
+            result.append(current.data)
+            current = current.next
+        return result
 
-    def _set_head_and_tail_(self, new_node: DllNode):
+    # def _set_head_and_tail_(self, new_node: DllNode):
+    #     self.head = new_node
+    #     self.tail = new_node
+
+    def _reset_(self, data = None):
+        new_node = DllNode(data) if data is not None else None
         self.head = new_node
         self.tail = new_node
-
-        

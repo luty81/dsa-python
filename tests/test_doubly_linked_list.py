@@ -1,7 +1,7 @@
 
 
 
-from typing import Tuple
+from typing import List, Tuple
 from dsa.doubly_linked_list import DoublyLinkedList
 from dsa.node import DllNode
 
@@ -161,6 +161,89 @@ def test_get_from_dll_with_one_element():
     assert found_item.next is None
     assert found_item is dll.head
     assert found_item is dll.tail
+
+def test_set_by_index():
+    dll = _doubly_linked_list_with_(3)
+    assert dll.set(-1, 100) is False
+    assert dll.to_string() == "10 <=> 20 <=> 30"
+    
+    assert dll.set(0, 15)
+    assert dll.to_string() == "15 <=> 20 <=> 30"
+    assert dll.head.data == 15
+
+    assert dll.set(1, 25)
+    assert dll.to_string() == "15 <=> 25 <=> 30"
+    
+    assert dll.set(2, 35)
+    assert dll.to_string() == "15 <=> 25 <=> 35"
+ 
+    assert dll.set(3, 40) is False
+    assert dll.to_string() == "15 <=> 25 <=> 35"
+
+def test_set_by_index_empty_dll():
+    empty_dll = DoublyLinkedList(None)
+    assert empty_dll.set(0, 10) is False
+    assert empty_dll.to_string() == ""
+    assert empty_dll.head is None
+    assert empty_dll.tail is None
+
+def test_insert_in_the_middle():
+    dll = _doubly_linked_list_with_(4)
+    
+    assert dll.insert(1, 15)  
+    assert _dll_is_expected_(dll, [10, 15, 20, 30, 40])
+    
+    assert dll.insert(3, 25) 
+    assert _dll_is_expected_(dll, [10, 15, 20, 25, 30, 40])
+
+    assert dll.insert(5, 35)
+    assert _dll_is_expected_(dll, [10, 15, 20, 25, 30, 35, 40])
+
+def test_insert_in_the_edges():
+    dll = _doubly_linked_list_with_(3)
+
+    assert dll.insert(0, 5)
+    assert _dll_is_expected_(dll, [5, 10, 20, 30])
+    assert dll.insert(4, 35)
+    assert _dll_is_expected_(dll, [5, 10, 20, 30, 35])
+
+def test_insert_in_single_dll():
+    dll = DoublyLinkedList(10)
+    assert dll.insert(0, 5)
+    assert _dll_is_expected_(dll, [5, 10])
+
+    dll = DoublyLinkedList(1)
+    assert dll.insert(1, 2)
+    assert _dll_is_expected_(dll, [1, 2])
+    
+def test_insert_in_an_empty_list():
+    dll = DoublyLinkedList(None)
+    assert dll.head is None
+    assert dll.tail is None
+
+    assert dll.insert(0, 10)
+    assert _dll_is_expected_(dll, [10])
+    
+
+
+def _dll_is_expected_(actual_dll: DoublyLinkedList, expected: List):
+    if any(expected):
+        assert actual_dll.head.prev is None
+        assert actual_dll.tail.next is None
+
+        if len(expected) == 1:
+            assert actual_dll.head.data == expected[0]
+            assert actual_dll.tail is actual_dll.head
+        else:
+            assert actual_dll.head.data == expected[0]
+            assert actual_dll.head.next.data == expected[1]
+            assert actual_dll.tail.data == expected[-1]
+            assert actual_dll.tail.prev.data == expected[-2]
+        
+        assert actual_dll.to_array() == expected
+        return True
+    
+    return False
 
 
 def _doubly_linked_list_with_(n_items: int):

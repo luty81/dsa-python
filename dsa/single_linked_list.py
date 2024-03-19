@@ -5,11 +5,11 @@ from dsa.node import Node
 class SingleLinkedList:
 
     def __init__(self, data = None):
-        self._init_list_(data)
+        self._reset_(data)
 
     def append(self, data):
         if self.head is None:
-            self._init_list_(data)
+            self._reset_(data)
         else:
             new_node = Node(data)
             self.tail.next = new_node
@@ -20,9 +20,7 @@ class SingleLinkedList:
             return None
         
         if self.head is self.tail:
-            removed_item = self.head
-            self._init_list_()
-            return removed_item
+            return self._pop_one_and_reset_linked_list_()
         
         previous_node = None
         current_node = self.head
@@ -40,18 +38,16 @@ class SingleLinkedList:
             return None
         
         if self.head is self.tail:
-            removed_item = self.head
-            self._init_list_()
-            return removed_item
+            return self._pop_one_and_reset_linked_list_()
 
-        removed_item = self.head
+        removed_node = self.head
         self.head = self.head.next
-        removed_item.next = None
-        return removed_item
+        removed_node.next = None
+        return removed_node
     
     def prepend(self, data):
         if self.head is None:
-            self._init_list_(data)
+            self._reset_(data)
         else:
             new_node = Node(data)
             new_node.next = self.head
@@ -127,6 +123,7 @@ class SingleLinkedList:
                 before = current
                 current = after
 
+
     def print_debug(self, before, current, after):
         msg = str(before.data) if before is not None else "None"
         msg = msg + " / " + str(current.data) if current is not None else "None"
@@ -170,10 +167,19 @@ class SingleLinkedList:
         
         return result
 
-    def _init_list_(self, data = None):
+
+    def _reset_(self, data = None):
         new_node = Node(data) if data is not None else None
         self.head = new_node
         self.tail = new_node
+
+    def _pop_one_and_reset_linked_list_(self):
+        if self.head is self.tail:
+            removed_item = self.head
+            self._reset_()
+            return removed_item
+        
+        return None
 
 
 sll = SingleLinkedList()
