@@ -3,13 +3,12 @@
 from dsa.node import DllNode
 
 class DoublyLinkedList:
-    def __init__(self, data):
+    def __init__(self, data = None):
         self._reset_(data)
-        
 
     def append(self, data):
         if self.head is None:
-            self._reset_(new_node)
+            self._reset_(data)
         else:
             new_node = DllNode(data)
             new_node.prev = self.tail
@@ -55,6 +54,10 @@ class DoublyLinkedList:
         node_to_remove.next = None
         return node_to_remove 
     
+
+    # Time Complexity of get, set, insert, remove: O(n)
+    # With length, we can reduce the cost of these operations by half, 
+    # but the time complexity would remain O(n) due to drop constants rule
     def get(self, index):
         if index < 0:
             return None
@@ -76,6 +79,7 @@ class DoublyLinkedList:
         
         return False
 
+    # Adding length to the DLL would allow to simplify a bit the insert and remove implementation
     def insert(self, index, data):
         if index < 0:
             return False

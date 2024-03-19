@@ -177,7 +177,7 @@ def test_set_by_index():
     assert dll.to_string() == "15 <=> 25 <=> 35"
 
 def test_set_by_index_empty_dll():
-    empty_dll = DoublyLinkedList(None)
+    empty_dll = DoublyLinkedList()
     assert empty_dll.set(0, 10) is False
     assert empty_dll.to_string() == ""
     assert empty_dll.head is None
@@ -214,7 +214,7 @@ def test_insert_in_single_dll():
     assert _dll_is_expected_(dll, [1, 2])
     
 def test_insert_in_an_empty_list():
-    dll = DoublyLinkedList(None)
+    dll = DoublyLinkedList()
     assert dll.head is None
     assert dll.tail is None
 
@@ -243,7 +243,7 @@ def test_remove_in_single_dll():
     assert dll.tail is None
 
 def test_remove_in_empty_list():
-    dll = DoublyLinkedList(None)
+    dll = DoublyLinkedList()
     assert dll.head is None
     assert dll.tail is None
     assert dll.remove(0) is None

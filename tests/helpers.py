@@ -1,12 +1,19 @@
 from typing import Tuple
 from dsa.node import Node
 from dsa.single_linked_list import SingleLinkedList
+from dsa.doubly_linked_list import DoublyLinkedList
 
 def create_linked_list_from(array):
     sll = SingleLinkedList()
     for value in array:
         sll.append(value)
     return sll
+
+def create_doubly_linked_list_from(array):
+    dll = DoublyLinkedList()
+    for value in array:
+        dll.append(value)
+    return dll
 
 def assert_node(node: Node, expected: Tuple):
     assert node is not None 
