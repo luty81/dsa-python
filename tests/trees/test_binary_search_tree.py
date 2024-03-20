@@ -57,6 +57,26 @@ def test_find():
     for key in range(5, 31, 5):
         assert bst.find(key).data == key
 
+
+def test_r_find():
+    bst = BinarySearchTree(30)
+    bst.insert(25)
+    bst.insert(20)
+    bst.insert(15)
+    bst.insert(10)
+    bst.insert(5)
+
+    assert bst.r_find(50) is None
+    assert bst.r_find(1) is None
+    for key in range(5, 31, 5):
+         assert bst.r_find(key).data == key
+
+
+    bst = BinarySearchTree(None)
+    assert bst.r_find(1) is None
+    bst = BinarySearchTree(1)
+    assert bst.r_find(1).data == 1
+
 def _is_leaf_(node: TreeNode, excepted_value):
     assert node.data == excepted_value
     assert node.left is None

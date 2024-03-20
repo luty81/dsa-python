@@ -43,6 +43,21 @@ class BinarySearchTree:
 
         return None
                 
+    def r_find(self, value) -> TreeNode | None:
+        return self.__r_find(self.root, value) if self.root is not None else None
+        
+
+    def __r_find(self, node: TreeNode, value): 
+        if node.data == value:
+            return node
+        
+        if node.left:
+            return self.__r_find(node.left, value)
+        
+        if node.right:
+            return self.__r_find(node.right, value)
+
+        return None
 
 
 
