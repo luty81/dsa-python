@@ -7,7 +7,7 @@ class TreeNode:
 
 class BinarySearchTree:
     def __init__(self, root_data):
-        self.root = TreeNode(root_data)
+        self.root = TreeNode(root_data) if root_data else None
 
     def insert(self, data) -> bool:
         new_node = TreeNode(data)
@@ -32,6 +32,12 @@ class BinarySearchTree:
                     return True
                 
                 current_node = current_node.right
+
+    def r_insert(self, data):
+        if self.root is None:
+            self.root = TreeNode(data)
+            
+        return self.__r_insert(self.root, data)
 
     def find(self, value) -> TreeNode | None:
         current = self.root
@@ -58,8 +64,24 @@ class BinarySearchTree:
             return self.__r_find(node.right, value)
 
         return None
+    
+    def __r_insert(self, node: TreeNode, data) -> bool:
+        if node.data == data:
+            return False
 
+        if data < node.data:
+            if node.left is None:
+                node.left = TreeNode(data)
+                return True
+            
+            return self.__r_insert(node.left, data)        
 
+        if data > node.data:
+            if node.right is None:
+                node.right = TreeNode(data)
+                return True
+            
+            return self.__r_insert(node.right, data)
 
 
 

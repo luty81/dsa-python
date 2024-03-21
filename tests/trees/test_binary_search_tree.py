@@ -77,6 +77,36 @@ def test_r_find():
     bst = BinarySearchTree(1)
     assert bst.r_find(1).data == 1
 
+def test_r_insert():
+    bst = BinarySearchTree(30)
+    bst.r_insert(25)
+    bst.r_insert(20)
+    bst.r_insert(15)
+    bst.r_insert(10)
+    bst.r_insert(5)
+
+    assert bst.root.data == 30
+    assert bst.root.left.data == 25
+    assert bst.root.left.left.data == 20
+    assert bst.root.left.left.left.data == 15
+    assert bst.root.left.left.left.left.data == 10
+    assert bst.root.left.left.left.left.left.data == 5
+    assert bst.root.left.left.left.left.left.left is None
+    assert bst.root.left.left.left.left.left.right is None
+    assert bst.root.left.left.left.left.right is None
+    assert bst.root.left.left.left.right is None
+    assert bst.root.left.left.right is None
+    assert bst.root.left.right is None
+    assert bst.root.right is None
+
+    bst = BinarySearchTree(None)
+    bst.r_insert(1)
+    assert bst.root.data == 1
+    assert bst.root.left is None
+    assert bst.root.right is None
+
+
+
 def _is_leaf_(node: TreeNode, excepted_value):
     assert node.data == excepted_value
     assert node.left is None
