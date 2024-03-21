@@ -49,7 +49,7 @@ def dfs_in_post_order(bst: BinarySearchTree) -> list:
     traverse(bst.root)
     return result
 
-def dfs_in_order(bst: BinarySearchTree) -> list:
+def dfs_in_order(bst: BinarySearchTree):
     result = []
     def traverse(node: TreeNode):
         if node.left:
@@ -63,6 +63,28 @@ def dfs_in_order(bst: BinarySearchTree) -> list:
     traverse(bst.root)
     return result
 
+def is_bst_valid(bst: BinarySearchTree) -> bool:
+    bst_in_order = dfs_in_order(bst)
+    for i in range(len(bst_in_order)-1):
+        if bst_in_order[i] > bst_in_order[i+1]:
+            return False
+    
+    return True
+
+def find_kth_smallest(bst: BinarySearchTree, k: int) -> bool:
+    in_order = []
+
+    def traverse(node: TreeNode, acc=0):
+        if node.left:
+            traverse(node.left, acc)
+        
+        in_order.append(node.data)
+
+        if node.right:
+            traverse(node.right, acc)
+
+    traverse(bst.root)
+    return in_order[k-1]
 
 def _invert_node_children(node: TreeNode):
     if node and node.is_leaf():

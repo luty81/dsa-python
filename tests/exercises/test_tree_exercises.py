@@ -47,11 +47,25 @@ def test_bst_breadth_first_search():
 
     assert search_bfs(bst) == [47, 21, 76, 18, 27, 53, 82]
 
-def test_bst_depth_first_search_pre_order():
+def test_bst_depth_first_searches():
     bst = _create_bst_from_([47, 21, 76, 18, 27, 53, 82])
     assert dfs_in_pre_order(bst) == [47, 21, 18, 27, 76, 53, 82]
     assert dfs_in_post_order(bst) == [18, 27, 21, 53, 82, 76, 47]
     assert dfs_in_order(bst) == [18, 21, 27, 47, 53, 76, 82]
+
+def test_bst_is_valid():
+    bst = _create_bst_from_([47, 21, 76, 18, 27, 53, 82])
+    assert is_bst_valid(bst) == True    
+
+    bst.root.left.left.data = bst.root.left.data + 1
+    assert is_bst_valid(bst) == False 
+
+def test_find_kth_smallest():
+    in_order = [18, 21, 27, 47, 53, 76, 82]
+    bst = _create_bst_from_([47, 21, 76, 18, 27, 53, 82])
+    for i in range(len(in_order)):
+        assert in_order[i] == find_kth_smallest(bst, i+1)
+
 
 def _create_bst_from_(array: list) -> BinarySearchTree:
     bst = BinarySearchTree(array.pop(0))
